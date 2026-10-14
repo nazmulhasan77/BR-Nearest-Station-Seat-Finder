@@ -1,9 +1,14 @@
 # 🚆 BR Nearest-Station Seat Finder
 
+<p align="center">
+  <img src="Screenshorts/BR%20Nearest%20Station%20Seat%20Finder%20Banner.png" alt="BR Nearest Station Seat Finder Banner" width="100%">
+</p>
+
 [![Manifest V3](https://img.shields.io/badge/Manifest-V3-blue.svg)](https://developer.chrome.com/docs/extensions/mv3/intro/)
 [![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-success.svg)](https://chrome.google.com/webstore)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Privacy Friendly](https://img.shields.io/badge/Privacy-100%25%20Local-green.svg)](PRIVACY_POLICY.md)
+
 
 An intelligent Chrome Extension for **Bangladesh Railway e-ticketing** ([eticket.railway.gov.bd](https://eticket.railway.gov.bd)).
 
@@ -31,6 +36,16 @@ When direct train seats for your route are completely sold out, this extension a
 | **One-Click Redirect** | যেকোনো রেজাল্টে ক্লিক করলেই সরাসরি সেই রুটের অফিসিয়াল বুকিং পেজ খুলে যায়। |
 | **Auto Refresh & Alert** | ৩০/৬০ সেকেন্ড পরপর ব্যাকগ্রাউন্ড রিফ্রেশ এবং সিট খালি হওয়া মাত্রই ডেক্সটপ নোটিফিকেশন অ্যালার্ট। |
 | **Offline Data Bundled** | ৪২৫টি স্টেশন ও ২২৪টি ট্রেনের সময়সূচী এক্সটেনশনের ভেতরেই সংরক্ষিত — কোনো বাহ্যিক সার্ভার নির্ভরতা নেই। |
+
+---
+
+## 📸 Screenshots / ইন্টারফেস প্রিভিউ
+
+<p align="center">
+  <img src="Screenshorts/Screenshorts%20(1).png" width="32%" alt="Search Interface">
+  <img src="Screenshorts/Screenshorts%20(2).png" width="32%" alt="Seat Finder Panel">
+  <img src="Screenshorts/Screenshorts%20(3).png" width="32%" alt="Alternative Options">
+</p>
 
 ---
 
