@@ -1,0 +1,19 @@
+/* Only styles the outer host element; everything inside the panel lives in a
+   shadow root so the railway site's CSS cannot interfere. */
+#br-seat-finder-root {
+  all: initial;
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2147483000;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  letter-spacing: normal;
+}
+
+/* hide the panel while the browser prints the itinerary / on small screens */
+@media print {
+  #br-seat-finder-root { display: none !important; }
+}
+@media (max-width: 560px) {
+  #br-seat-finder-root { right: 8px; bottom: 8px; left: 8px; }
+}

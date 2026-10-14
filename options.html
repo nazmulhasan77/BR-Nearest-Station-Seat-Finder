@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Nearest-station finder — settings</title>
+<style>
+  :root { color-scheme: light; }
+  body { margin:0; font:13px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; color:#0f172a; background:#f6f8fa; }
+  .wrap { max-width:760px; margin:0 auto; padding:22px 20px 60px; }
+  h1 { font-size:19px; margin:0 0 4px; }
+  .lead { color:#64748b; margin:0 0 18px; font-size:13px; }
+  .card { background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:14px 16px; margin-bottom:14px; }
+  .card h2 { font-size:13.5px; margin:0 0 10px; text-transform:uppercase; letter-spacing:.6px; color:#0a6250; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px 18px; }
+  .f { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .f label { font-size:12.5px; color:#334155; }
+  .f input[type=number], .f select, .f input[type=text] { font-size:12.5px; padding:3px 6px; border:1px solid #cbd5e1; border-radius:6px; }
+  .hint { font-size:11.5px; color:#64748b; margin:8px 0 0; }
+  textarea { width:100%; min-height:96px; font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; border:1px solid #cbd5e1; border-radius:8px; padding:8px; }
+  button { font:600 12.5px/1 inherit; border:1px solid #0d7a5f; background:#0d7a5f; color:#fff; border-radius:8px; padding:8px 14px; cursor:pointer; }
+  button.ghost { background:#fff; color:#0a6250; }
+  .btns { display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; align-items:center; }
+  pre { background:#0f172a; color:#e2e8f0; border-radius:8px; padding:10px 12px; overflow:auto; max-height:280px; font-size:11.5px; }
+  .status { font-size:12px; margin-left:6px; color:#475569; }
+  code { background:#eef2f6; padding:1px 4px; border-radius:4px; font-size:11.5px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🚆 Nearest-station finder — settings</h1>
+  <p class="lead">For Bangladesh Railway e-ticketing (eticket.railway.gov.bd). When your route is sold out, the finder
+     re-queries the railway API for the stations just before / after your origin and destination — plus the nearest
+     stations by road distance — and lists everything that still has seats.</p>
+
+  <div class="card">
+    <h2>Search behaviour</h2>
+    <div class="grid">
+      <div class="f"><label for="hops">Stations before / after (hops)</label>
+        <select id="hops"><option>1</option><option>2</option><option>3</option></select></div>
+      <div class="f"><label for="detour">Max detour per end (km)</label>
+        <input id="detour" type="number" min="5" max="300" step="5"></div>
+      <div class="f"><label for="geocount">Distance-based neighbours</label>
+        <select id="geocount"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+      <div class="f"><label for="maxpairs">Max pairs to query</label>
+        <input id="maxpairs" type="number" min="3" max="40" step="1"></div>
+      <div class="f"><label for="seatclass">Seat class override</label>
+        <input id="seatclass" type="text" placeholder="blank = from URL"></div>
+      <div class="f"><label for="refresh">Auto refresh (seconds, 0 = off)</label>
+        <input id="refresh" type="number" min="0" max="600" step="10"></div>
+    </div>
+    <div class="grid" style="margin-top:10px">
+      <div class="f"><label for="autorun">Run automatically on the results page</label><input id="autorun" type="checkbox"></div>
+      <div class="f"><label for="notify">Desktop notification when seats appear</label><input id="notify" type="checkbox"></div>
+      <div class="f"><label for="onlymyclass">Show only my seat class</label><input id="onlymyclass" type="checkbox"></div>
+    </div>
+    <p class="hint"><b>hops</b> = how many stops up/down the train's route to consider (route based).
+       <b>Distance-based neighbours</b> adds stations that are simply close by, even if no train on your route stops there.</p>
+  </div>
+
+  <div class="card">
+    <h2>Station name fixes</h2>
+    <p class="hint" style="margin-top:0">The bundled timetable occasionally spells a small station differently from the
+       booking site. If a pair keeps returning “no trains”, add the site's spelling here — one per line,
+       <code>CODE = Site Name</code> (the code is shown in the panel, e.g. <code>TEJ = Tejgaon</code>).</p>
+    <textarea id="overrides" spellcheck="false" placeholder="TEJ = Tejgaon&#10;GNZ = Gendaria"></textarea>
+  </div>
+
+  <div class="card">
+    <h2>Connection test</h2>
+    <p class="hint" style="margin-top:0">Runs one real query against the railway API using your current session.
+       Open eticket.railway.gov.bd and log in first.</p>
+    <div class="btns">
+      <input id="tfrom" type="text" placeholder="From (e.g. Dhaka)" style="padding:6px 8px;border:1px solid #cbd5e1;border-radius:6px">
+      <input id="tto" type="text" placeholder="To (e.g. Chatmohar)" style="padding:6px 8px;border:1px solid #cbd5e1;border-radius:6px">
+      <input id="tdate" type="text" placeholder="dd-Mon-yyyy" style="padding:6px 8px;border:1px solid #cbd5e1;border-radius:6px;width:110px">
+      <button id="test">Test API</button>
+      <span class="status" id="teststatus"></span>
+    </div>
+    <pre id="testout" style="display:none"></pre>
+  </div>
+
+  <div class="btns">
+    <button id="save">Save</button>
+    <button id="reset" class="ghost">Reset to defaults</button>
+    <span class="status" id="savestatus"></span>
+  </div>
+</div>
+<script src="options.js"></script>
+</body>
+</html>
